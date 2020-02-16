@@ -96,7 +96,7 @@ Type the following into the command line at the root folder (toy-robot-on-table)
 **Running Tests**
 Type the following into the command line at the root folder (toy-robot-on-table)
 
-    pytest
+    pytest test
 
 
 
