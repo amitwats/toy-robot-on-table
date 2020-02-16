@@ -37,9 +37,7 @@ def testValidate():
     print(utility.validateInteger(5))
     print(utility.validateString("5"))
 
-def testTable():
-    t=Table(5,5)
-    print("Table fine")
+
 
 def testDirections():
     table=Table(5,5)
