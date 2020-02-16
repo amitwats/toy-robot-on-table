@@ -6,13 +6,13 @@ class Robot:
     def __init__(self,tableRef,init_x=0,init_y=0,direction=Directions.NORTH):
         self._direction=Directions.NORTH
         self.direction=direction #validates the value       
-        self._x_pos=init_x
-        self._y_pos=init_y
         self._table=tableRef
+        self._x_pos=utility.validateInteger(init_x)
+        self._y_pos=utility.validateInteger(init_y)
         #to-do Add table check
-
-        #to-do check if the init_x and init_y are on the table. If not throw Value exception
-
+        if 0>=init_x>self._table.count_x-1 or 0>=init_y>self._table.count_y-1 :
+            raise ValueError(f"The robot is being placed out of the table. Cannot place the Robot")
+        
     @property
     def table(self):
         return self._table
@@ -35,6 +35,7 @@ class Robot:
     def x_pos(self, x):
         if self.table.isPositionValid(x,self.y_pos):
             self._x_pos = x
+            
 
 
     # # to-do Write test cases for value <0 and >3

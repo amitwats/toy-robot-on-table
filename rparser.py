@@ -16,7 +16,6 @@ class Parser:
         self.source=fileName
         self.allCommands=[]
         valid,lineNo,message=self.isValid()
-        print(f"The validity is {valid}")
         if not valid:
             raise SyntaxError(f"The format of the input file '{fileName}' is not valid. Please check the file at line no {lineNo} for the error {message}.")
         self.makeCommandArray()
@@ -43,29 +42,28 @@ class Parser:
     def validatePlaceParameters(self,val):
         valid=False
         message=""
-        valid=valid and val.len==3
-        try:
-            x=int(val[0])
-            valid=True
-        except:
-            valid=False
-            message="Non integer Value in X"
 
-        try:
-            y=int(val[1])
-            valid=True
-        except:
-            valid=False
-            message="Non integer Value in Y"
+        if len(val)==3:
+            try:
+                x=int(val[0])
+                valid= x>=0
+            except:
+                valid=False
+                message="Non integer Value in X"
+            try:
+                y=int(val[1])
+                valid=valid and y>=0 
+            except:
+                valid=False
+                message="Non integer Value in Y"
 
-        try:
-            y=Directions.getDirectionValue(val[2])
-            valid=True
-        except:
-            valid=False
-            message=f"Unidentified direction in input file. Please ensure the values for direction are {Directions.validDirectionNames()}"
+            try:
+                y=Directions.getDirectionValue(val[2])
+            except:
+                valid=False
+                message=f"Unidentified direction in input file. Please ensure the values for direction are {Directions.validDirectionNames()}"
 
-        valid=valid and isinstance(val[0],int),message
+        return valid,message
 
 # - The first valid command to the robot is a PLACE command, after that, any
 #   sequence of commands may be issued, in any order, including another PLACE
@@ -129,13 +127,12 @@ class Command:
     #     if len(fullStr)==0: return ""
     #     else: return splitStr[0]
 
-
     def __init__(self,line):
         fullStr=utility.validateString(line).strip()
         # splitStr=fullStr.split(" ")
         splitStr=re.split("[ ,]{1}",fullStr)
         
-        splitStrBlank=re.split("[ ]]{1}",fullStr)
+        #splitStrBlank=re.split("[ ]]{1}",fullStr)
         commIndex=fullStr.find(" ")
         if commIndex>0:
             comm=fullStr[0:commIndex]
@@ -149,9 +146,9 @@ class Command:
             self.name= fullStr
             self.parameters=[]
         else:
-            splitStr=re.split("[,]{1}",fullStr[commIndex:])
+            splitStr=re.split("[,]{1}",fullStr[commIndex+1:].strip())
             self.name=fullStr[0:commIndex].strip()
-            self.parameters=splitStr
+            self.parameters=[p.strip() for p in splitStr]
 
 
         # if len(fullStr)==0: 
@@ -177,52 +174,3 @@ class Command:
 
     def __str__(self):
         return f"name={self.name} and parameters are {self.parameters}"
-
-# read LINE until you find the first PLACE line
-# 
-# read line
-#TRIM LINE
-# determine type of command, remember PLace CAN RE-OCCUrE 
-#   PLACE, MOVE, REPORT
-# IF PLACE
-
-def testFile():
-    testFileName="test/test_data/normal_short_file.dat"
-
-    with open(testFileName) as f:
-        lines=[line.rstrip() for line in f]
-    for line in lines:
-        print(Parser.getCommandType(line))
-
-def testConstructor():
-    testFileName="test/test_data/normal_short_file.dat"
-    p=Parser(testFileName)
-    p.isValid()
-
-def testCommand():
-    # c=Command("PLACE 5,5,NORTH")
-    c=Command("REPORT")
-    # c=Command("")
-    #print(c)
-    print(c.name)
-    print(c.parameters)
-
-def testParsing():
-    p=Parser(FILE_1)
-    #p=Parser(FILE_3)
-    #p=Parser(FILE_4)
-    p=Parser(FILE_2)
-    print(p.source)
-    x=p.isValid()
-    print(f"The val is {p.isValid()}")
-    print(f"Iteratimg the command array")
-    for cm in p.allCommands:
-        print(cm)
-
-if __name__ == "__main__":
-    # testFile()
-    #testConstructor()
-    #testCommand()
-    testParsing()
-    pass
-

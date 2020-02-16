@@ -9,83 +9,83 @@ from rparser import Parser
 import sys
 
 
-def test_remainder():
+# def test_remainder():
 
-    for x in range(-10,10):
-        print(f"The remainder of {x}%4 is {x%4}")
+#     for x in range(-10,10):
+#         print(f"The remainder of {x}%4 is {x%4}")
 
-def test_turning_right():
-    r=Robot()
-    for x in range(10):
-        r.turn(Directions.RIGHT)
-        print(r.direction)
+# def test_turning_right():
+#     r=Robot()
+#     for x in range(10):
+#         r.turn(Directions.RIGHT)
+#         print(r.direction)
 
-def test_turning_left():
-    r=Robot()
-    for x in range(10):
-        r.turn(Directions.LEFT)
-        print(r.direction)
+# def test_turning_left():
+#     r=Robot()
+#     for x in range(10):
+#         r.turn(Directions.LEFT)
+#         print(r.direction)
 
-def test_turning_left_right():
-    r=Robot()
-    for x in range(10):
-        r.turn((Directions.LEFT,Directions.RIGHT)[x%2])
-        print(r.direction)
+# def test_turning_left_right():
+#     r=Robot()
+#     for x in range(10):
+#         r.turn((Directions.LEFT,Directions.RIGHT)[x%2])
+#         print(r.direction)
 
-def testValidate():
-    print(isinstance(5,int))
-    print(utility.validateInteger(5))
-    print(utility.validateString("5"))
+# def testValidate():
+#     print(isinstance(5,int))
+#     print(utility.validateInteger(5))
+#     print(utility.validateString("5"))
 
 
 
-def testDirections():
-    table=Table(5,5)
-    rob=Robot(table,0,0)
-    print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
-    rob.move()
-    print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
-    rob.move()
-    print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
-    rob.move()
-    print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
-    rob.move()
-    print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
-    rob.move()
-    print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
-    rob.move()
-    print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
-    rob.move()
-    print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
-    print("Turning left")
-    rob.turn(Directions.LEFT)
-    rob.move()
-    print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
-    rob.move()
-    print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
-    print("Turning right")
-    rob.turn(Directions.RIGHT)
-    rob.move()
-    print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
-    rob.move()
-    print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
-    print("Turning right-right")
-    rob.turn(Directions.RIGHT)
-    rob.turn(Directions.RIGHT)
-    print(f"The direction is {Directions.getDirectinoName(rob.direction)}")
-    rob.move()
-    print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
-    rob.move()
-    print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
-    rob.move()
-    print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
-    #rob.turn(Directions.LEFT)
-    rob.move()
-    print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
-    rob.move()
-    print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
-    rob.move()
-    print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
+# def testDirections():
+#     table=Table(5,5)
+#     rob=Robot(table,0,0)
+#     print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
+#     rob.move()
+#     print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
+#     rob.move()
+#     print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
+#     rob.move()
+#     print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
+#     rob.move()
+#     print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
+#     rob.move()
+#     print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
+#     rob.move()
+#     print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
+#     rob.move()
+#     print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
+#     print("Turning left")
+#     rob.turn(Directions.LEFT)
+#     rob.move()
+#     print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
+#     rob.move()
+#     print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
+#     print("Turning right")
+#     rob.turn(Directions.RIGHT)
+#     rob.move()
+#     print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
+#     rob.move()
+#     print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
+#     print("Turning right-right")
+#     rob.turn(Directions.RIGHT)
+#     rob.turn(Directions.RIGHT)
+#     print(f"The direction is {Directions.getDirectinoName(rob.direction)}")
+#     rob.move()
+#     print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
+#     rob.move()
+#     print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
+#     rob.move()
+#     print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
+#     #rob.turn(Directions.LEFT)
+#     rob.move()
+#     print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
+#     rob.move()
+#     print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
+#     rob.move()
+#     print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
 
 # @click.command()
 # @click.option("--file", default="test/test_data/normal_short_file.dat",prompt="Enter the full path of the file with commands.", help="Name of file with commands.")
@@ -146,6 +146,7 @@ def main():
         exit()
     else:
         fileName=sys.argv[1]
+    makeMovement(fileName,"5","5")
 
     # r=Robot()
     # test_turning_right()
@@ -162,6 +163,5 @@ def main():
     #print(f"The direction from {Directions.NORTH}")
     #test_remainder()
     "--------------"
-    makeMovement(fileName,"5","5")
     "--------------"
     #makeMovement("test/test_data/no_place_command.dat","5","5")
