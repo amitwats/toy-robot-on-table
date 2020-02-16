@@ -9,10 +9,25 @@ FILE_4="test/test_data/invalid_inbetween.dat"
 
 
 class Parser:
+    """Parser class is the class that takes the commands file path as input and genrates an array of commands which can
+    then be refered by external clinets to determine the next command to execute.
     
+    Raises:
+        SyntaxError: In case the commands file is invalid this exception is raised.
+    """
+    
+    #The list of commands that are valid
     validCommandNames=['PLACE','REPORT','LEFT','RIGHT','MOVE']
     
-    def __init__(self,fileName):
+    def __init__(self,fileName:str):
+        """The constructor takes a file name and reads through it to produce an array of commands to be refered to later.
+        
+        Arguments:
+            fileName {str} -- The complete path of the file which contains the commands.
+        
+        Raises:
+            SyntaxError: If the file of commands is invalid, this error is thrown.
+        """
         self.source=fileName
         self.allCommands=[]
         valid,lineNo,message=self.isValid()
@@ -21,25 +36,17 @@ class Parser:
         self.makeCommandArray()
 
 
+    def validatePlaceParameters(self,val:str[]):
+        """This method takes an array of parameters that come along woth the PLACE command and 
+        validates the parameters 
+        
+        Arguments:
+            val {str[]} -- An array of strings containing the parameters to be validate.
+        
+        Returns:
+            boolean -- True if all parameters passed through 'val' are valid. Otherwise returns false.
+        """
 
-    # Valid format is below
-    #
-    # PLACE X,Y,F
-    # MOVE
-    # LEFT
-    # RIGHT
-    # REPORT
-
-    # def getCommandType(val):
-    #     fullStr=utility.validateString(val)
-    #     splitStr=fullStr.split(" ")
-    #     if len(fullStr)==0: return ""
-    #     else: return splitStr[0]
-
-    # def processCommand(self,cmd):
-    #     pass
-
-    def validatePlaceParameters(self,val):
         valid=False
         message=""
 
@@ -71,6 +78,14 @@ class Parser:
 #   a valid PLACE command has been executed.
 
     def isValid(self):
+        """Checks if the command file that is passed is in a valid format
+        
+        Returns:
+            boolean,int,str -- If the format is valid, 
+                                The line number of the error, if any.
+                                The error message, if any.
+
+        """
         # check the first PLACE command
         startParsing=False
         lineNo=0
@@ -96,6 +111,8 @@ class Parser:
 
 
     def makeCommandArray(self):
+        """Converts the list of commands in a string format to a commands array. 
+        """
         # check the first PLACE command
         self.allCommands=[]
         startParsing=False
@@ -111,28 +128,23 @@ class Parser:
 
 
 
-        #     lines=[line.strip() for line in f]
-        
-        
-        # for line in lines:
-        #     print(Parser.getCommandType(line))        
-
-        # pass
-
 class Command:
+    """The class that represents one command read from the command file. It contains the following attributes.
 
-    # def getCommandType(val):
-    #     fullStr=utility.validateString(val)
-    #     splitStr=fullStr.split(" ")
-    #     if len(fullStr)==0: return ""
-    #     else: return splitStr[0]
+        Attributes:
+            name {str} -- The name of the commans
+            parameters {str[]} -- An array of parameters which are associated with the command(name)
+
+    """
 
     def __init__(self,line):
-        fullStr=utility.validateString(line).strip()
-        # splitStr=fullStr.split(" ")
-        splitStr=re.split("[ ,]{1}",fullStr)
+        """The constructor. This takes a string line as input and breakes it into a command and parameters, after validating them.
         
-        #splitStrBlank=re.split("[ ]]{1}",fullStr)
+        Arguments:
+            line {str} -- The command and paramaters as passed from the command file.
+        """
+        fullStr=utility.validateString(line).strip()
+        splitStr=re.split("[ ,]{1}",fullStr)
         commIndex=fullStr.find(" ")
         if commIndex>0:
             comm=fullStr[0:commIndex]
@@ -150,15 +162,15 @@ class Command:
             self.name=fullStr[0:commIndex].strip()
             self.parameters=[p.strip() for p in splitStr]
 
-
-        # if len(fullStr)==0: 
-        #     self.name= ""
-        #     self.parameters=[]
-        # else: 
-        #     self.name=splitStr[0]
-        #     self.parameters=splitStr[1:]
-
-    def __eq__(self,val):
+    def __eq__(self,val:Command):
+        """The method is used to compare if two command objects have same values.
+        
+        Arguments:
+            val {Command} -- The object against which this object is being compared to.
+        
+        Returns:
+            boolean -- True if the command name and the list of parameters in order are matching.
+        """
         if not isinstance(val,Command):
             return False
         
@@ -172,5 +184,10 @@ class Command:
         return True
 
 
-    def __str__(self):
+    def __str__(self):str:
+        """Generates a string equivalent of the Command object.
+        
+        Returns:
+            str -- The string equivalent of the object.
+        """
         return f"name={self.name} and parameters are {self.parameters}"
