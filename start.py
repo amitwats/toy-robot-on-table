@@ -8,7 +8,7 @@ from rparser import Parser
 import sys
 
 
-def makeMovement(file:str,tablex:int=5,tabley:int=5):
+def makeMovement(file,tablex=5,tabley=5):
     """The main method that codes the logic of interaction between
     the Parser, Table and Robot. It uses the Parser object to generate all commands.
     The Table object is then created and a Robot is places on it. After validations the 

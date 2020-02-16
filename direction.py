@@ -62,7 +62,7 @@ class Directions:
         """
         return ['LEFT','RIGHT']
 
-    def getDirectinoName(val:int):
+    def getDirectinoName(val):
         """Takes a number as an input and returns the name of the direction the number represents.
         
         Arguments:
@@ -77,7 +77,7 @@ class Directions:
         dirDict={0:"NORTH",1:"EAST",2:"SOUTH",3:"WEST"}
         return dirDict[val]
 
-    def getDirectionValue(val:str):
+    def getDirectionValue(val):
         """Takes a string as an input and returns the number of the direction the string represents.
         
         Arguments:

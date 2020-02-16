@@ -5,7 +5,7 @@ class Table:
   
     """
 
-    def __init__(self,count_x=5:int,count_y=5:int):
+    def __init__(self,count_x=5,count_y=5):
         """The constructor
         
         Arguments:
@@ -18,7 +18,7 @@ class Table:
             
     
     #x,y are zero indexed positions 
-    def isPositionValid(self,x:int,y:int):
+    def isPositionValid(self,x,y):
         """Checks is the position x (0-indexed) and y (0-indexed) are valid on the table. 
         
         Arguments:

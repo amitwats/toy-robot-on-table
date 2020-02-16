@@ -12,7 +12,7 @@ class Robot:
     
     """
 
-    def __init__(self,tableRef:Table,init_x=0:int,init_y=0:int,direction=Directions.NORTH):
+    def __init__(self,tableRef,init_x=0,init_y=0,direction=Directions.NORTH):
         """The constructor of the Robot
         
         Arguments:

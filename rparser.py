@@ -19,7 +19,7 @@ class Parser:
     #The list of commands that are valid
     validCommandNames=['PLACE','REPORT','LEFT','RIGHT','MOVE']
     
-    def __init__(self,fileName:str):
+    def __init__(self,fileName):
         """The constructor takes a file name and reads through it to produce an array of commands to be refered to later.
         
         Arguments:
@@ -36,7 +36,7 @@ class Parser:
         self.makeCommandArray()
 
 
-    def validatePlaceParameters(self,val:str[]):
+    def validatePlaceParameters(self,val):
         """This method takes an array of parameters that come along woth the PLACE command and 
         validates the parameters 
         
@@ -162,7 +162,7 @@ class Command:
             self.name=fullStr[0:commIndex].strip()
             self.parameters=[p.strip() for p in splitStr]
 
-    def __eq__(self,val:Command):
+    def __eq__(self,val):
         """The method is used to compare if two command objects have same values.
         
         Arguments:
@@ -184,7 +184,7 @@ class Command:
         return True
 
 
-    def __str__(self):str:
+    def __str__(self):
         """Generates a string equivalent of the Command object.
         
         Returns:
