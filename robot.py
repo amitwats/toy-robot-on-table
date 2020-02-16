@@ -2,8 +2,30 @@ from direction import Directions
 import utility
 
 class Robot:
+    """The class represents the Robot. The main parameters are 
+        direction - This is the direction in which the Robot is facing and can move in if move command is called.
+        x_pos - The current x position(0-Indexed) of the Robot on the table.
+        y_pos - The current y position(0-Indexed) of the Robot on the table.
+    
+    Raises:
+        ValueError: If invalid values are passed as parameters this exception is raised.
+    
+    """
 
-    def __init__(self,tableRef,init_x=0,init_y=0,direction=Directions.NORTH):
+    def __init__(self,tableRef:Table,init_x=0:int,init_y=0:int,direction=Directions.NORTH):
+        """The constructor of the Robot
+        
+        Arguments:
+            tableRef {Table} -- The Table object on which the robot is kept.
+        
+        Keyword Arguments:
+            init_x {int} -- The initial x position (0-indexed) of the Robot (default: {0})
+            init_y {int} -- The initial y position (0-indexed) of the Robot (default: {0})
+            direction {int} -- Valid values for this are Directions.NORTH,Directions.SOUTH,Directions.EAST,Directions.WEST (default: {Directions.NORTH})
+        
+        Raises:
+            ValueError: in case the parameters passed are invalid or the position of the Robot is outside the table.
+        """
         self._direction=Directions.NORTH
         self.direction=direction #validates the value       
         self._table=tableRef
@@ -53,8 +75,16 @@ class Robot:
         value=utility.validateInteger(int(value))
         self._direction = value%4
 
-    # to-do write test cases for multiple right/left subsequent terms
     def turn(self,value):
+        """Makes the Robot turn left or Right
+        
+        Arguments:
+            value {int} -- Valid values are Directions.LEFT or Directions.RIGHT
+        
+        Raises:
+            ValueError: In case the value is not Directions.LEFT or Directions.RIGHT
+        """
+
         #validate parameter values 
         if value not in Directions.validTurns():
             raise ValueError(f"The values can be only from the Directions class. valid values are Directions.RIGHT and Directions.LEFT")
@@ -63,6 +93,9 @@ class Robot:
         self.direction=index+value
 
     def move(self):
+        """Moves the Robot one step ahead in the direction it is facing. If the step will make the Robot fall off the table the Robot remains in their position.
+        """
+
         if self.direction==Directions.NORTH:
             self.y_pos=self.y_pos+1
 
