@@ -4,6 +4,10 @@ from direction import Directions
 import direction
 import utility
 from table import Table 
+import click
+from rparser import Parser
+import sys
+
 
 def test_remainder():
 
@@ -37,8 +41,93 @@ def testTable():
     t=Table(5,5)
     print("Table fine")
 
+def testDirections():
+    table=Table(5,5)
+    rob=Robot(table,0,0)
+    print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
+    rob.move()
+    print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
+    rob.move()
+    print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
+    rob.move()
+    print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
+    rob.move()
+    print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
+    rob.move()
+    print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
+    rob.move()
+    print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
+    rob.move()
+    print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
+    print("Turning left")
+    rob.turn(Directions.LEFT)
+    rob.move()
+    print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
+    rob.move()
+    print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
+    print("Turning right")
+    rob.turn(Directions.RIGHT)
+    rob.move()
+    print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
+    rob.move()
+    print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
+    print("Turning right-right")
+    rob.turn(Directions.RIGHT)
+    rob.turn(Directions.RIGHT)
+    print(f"The direction is {Directions.getDirectinoName(rob.direction)}")
+    rob.move()
+    print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
+    rob.move()
+    print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
+    rob.move()
+    print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
+    #rob.turn(Directions.LEFT)
+    rob.move()
+    print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
+    rob.move()
+    print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
+    rob.move()
+    print(f"The x,y pos is {rob.x_pos},{rob.y_pos}")
+
+# @click.command()
+# @click.option("--file", default="test/test_data/normal_short_file.dat",prompt="Enter the full path of the file with commands.", help="Name of file with commands.")
+# @click.option("--tablex", default="5", prompt="Enter number of squars along x axis",help="Number of squares on table in X direction.")
+# @click.option("--tabley", default="5", prompt="Enter number of squars along y axis", help="Number of squares on table in Y direction.")
+def makeMovement(file,tablex,tabley):
+    parsr=Parser(file)
+    valid,lineNo,message=parsr.isValid()
+    if valid:
+        tabl=Table(int(tablex),int(tabley))
+        rob=Robot(tabl)
+        commands=parsr.allCommands
+        for x in commands:
+            if x.name=="PLACE":
+                rob.x_pos=int(x.parameters[0])
+                rob.y_pos=int(x.parameters[1])
+                rob.direction=Directions.getDirectionValue(x.parameters[2])
+            elif x.name=="MOVE":
+                rob.move()
+            elif x.name=="LEFT":
+                rob.turn(Directions.LEFT)
+            elif x.name=="RIGHT":
+                rob.turn(Directions.RIGHT)
+            elif x.name=="REPORT":
+                print(f"{rob.x_pos},{rob.y_pos},{Directions.getDirectinoName(rob.direction)}")
+    else:
+        print(f"Incomplete or wrong format found check to following errors\n {message} ")
+    # print(tablex)
+    # print(tabley)
+
+
+
+
 def main():
-    print("In main")
+    if len(sys.argv)!=2:
+        print("Invalid arguments length. Usage \n\t start [name of input file]")
+        exit()
+    else:
+        fileName=sys.argv[1]
+
     # r=Robot()
     # test_turning_right()
     # print("-"*30)
@@ -48,8 +137,12 @@ def main():
 
     #print(utility.validateInteger("5"))
 
-    testTable()
-
+    #testTable()
+    #testDirections()
     # print(r.direction)
     #print(f"The direction from {Directions.NORTH}")
     #test_remainder()
+    "--------------"
+    makeMovement(fileName,"5","5")
+    "--------------"
+    #makeMovement("test/test_data/no_place_command.dat","5","5")

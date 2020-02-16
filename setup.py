@@ -5,7 +5,7 @@ NAME = "toy-robot-on-table"
 
 VERSION = "0.1" 
 
-REQUIRES = [ 
+REQUIRES = [ "click",
 ] 
 
  
