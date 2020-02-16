@@ -15,9 +15,10 @@ class Parser:
     def __init__(self,fileName):
         self.source=fileName
         self.allCommands=[]
-        valid=self.isValid()
+        valid,lineNo,message=self.isValid()
+        print(f"The validity is {valid}")
         if not valid:
-            raise SyntaxError(f"The format of the input file '{fileName}' is not valid. Please check the file")
+            raise SyntaxError(f"The format of the input file '{fileName}' is not valid. Please check the file at line no {lineNo} for the error {message}.")
         self.makeCommandArray()
 
 
@@ -160,9 +161,23 @@ class Command:
         #     self.name=splitStr[0]
         #     self.parameters=splitStr[1:]
 
+    def __eq__(self,val):
+        if not isinstance(val,Command):
+            return False
+        
+        if self.name==val.name and len(self.parameters)==len(val.parameters):
+            for index in range(len(self.parameters)):
+                if val.parameters[index]!=self.parameters[index]:
+                    return False
+        else:
+            return False
+
+        return True
+
+
     def __str__(self):
         return f"name={self.name} and parameters are {self.parameters}"
-        
+
 # read LINE until you find the first PLACE line
 # 
 # read line
