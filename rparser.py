@@ -133,12 +133,32 @@ class Command:
         fullStr=utility.validateString(line).strip()
         # splitStr=fullStr.split(" ")
         splitStr=re.split("[ ,]{1}",fullStr)
-        if len(fullStr)==0: 
+        
+        splitStrBlank=re.split("[ ]]{1}",fullStr)
+        commIndex=fullStr.find(" ")
+        if commIndex>0:
+            comm=fullStr[0:commIndex]
+        else:
+            comm=fullStr
+
+        if len(comm)==0: 
             self.name= ""
             self.parameters=[]
-        else: 
-            self.name=splitStr[0]
-            self.parameters=splitStr[1:]
+        elif commIndex<=0:
+            self.name= fullStr
+            self.parameters=[]
+        else:
+            splitStr=re.split("[,]{1}",fullStr[commIndex:])
+            self.name=fullStr[0:commIndex].strip()
+            self.parameters=splitStr
+
+
+        # if len(fullStr)==0: 
+        #     self.name= ""
+        #     self.parameters=[]
+        # else: 
+        #     self.name=splitStr[0]
+        #     self.parameters=splitStr[1:]
 
     def __str__(self):
         return f"name={self.name} and parameters are {self.parameters}"

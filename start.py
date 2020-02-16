@@ -102,9 +102,30 @@ def makeMovement(file,tablex,tabley):
         commands=parsr.allCommands
         for x in commands:
             if x.name=="PLACE":
-                rob.x_pos=int(x.parameters[0])
-                rob.y_pos=int(x.parameters[1])
-                rob.direction=Directions.getDirectionValue(x.parameters[2])
+                errorFound=False
+                errorMessage=[]
+                if 0<=int(x.parameters[0])<=tabl.count_x:
+                    rob.x_pos=int(x.parameters[0])
+                else:
+                    errorFound=True
+                    errorMessage.append(f"Invalid placement of Robot in X direction of table. The value should be between 1 and {tabl.count_x}.")
+
+                if 0<=int(x.parameters[1])<=tabl.count_y:
+                    rob.y_pos=int(x.parameters[1])
+                else:
+                    errorFound=True
+                    errorMessage.append(f"Invalid placement of Robot in Y direction of table.The value should be between 1 and {tabl.count_y}.")
+                
+                try:
+                    rob.direction=Directions.getDirectionValue(x.parameters[2].strip())
+                except:
+                    errorFound=True
+                    errorMessage.append(f"Invalid value of direction in which the Robot is facing found {x.parameters[2]}, should be a value in {Directions.validDirectionNames()}")
+                
+                if errorFound:
+                    errorMerged='\n\t'.join(errorMessage) 
+                    print(f"Issue found in the PLACE command. \n\t{errorMerged}")
+                    exit(1)
             elif x.name=="MOVE":
                 rob.move()
             elif x.name=="LEFT":
